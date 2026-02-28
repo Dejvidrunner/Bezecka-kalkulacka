@@ -23,7 +23,7 @@
     body.light { background: #f2f2f2; color: #111; }
     body.light .app { background: #f2f2f2; background-image: radial-gradient(ellipse 70% 50% at 5% 5%, rgba(76,255,0,.08) 0%, transparent 55%), radial-gradient(ellipse 50% 70% at 95% 95%, rgba(76,255,0,.05) 0%, transparent 55%); }
     body.light .hdr { background: #fff; border-bottom-color: #ddd; }
-    body.light .tabs { background: #fff; border-bottom-color: #ddd; }
+    body.light .tabs { background: rgba(255,255,255,.95); border-top-color: #e0e0e0; border-bottom-color: transparent; box-shadow: 0 -8px 32px rgba(0,0,0,.1); backdrop-filter:blur(12px); }
     body.light .tab { color: #444; }
     body.light .tab:hover { color: #333; }
     body.light .card { background: #fff; border-color: #e0e0e0; }
@@ -68,7 +68,7 @@
     .theme-btn:hover { border-color: #4cff00; color: #4cff00; }
     body.light .theme-btn { border-color: #ddd; color: #999; }
     body.light .theme-btn:hover { border-color: #1e7d00; color: #1e7d00; }
-    body.light .tab.on { color: #1e7d00; border-bottom-color: #1e7d00; }
+    body.light .tab.on { color: #1e7d00; border-top-color: #1e7d00; background: rgba(30,125,0,.06); }
     body.light .big-num.accent { color: #1e7d00; }
     body.light .rbox-val.g { color: #1e7d00; }
     body.light .race-dist { color: #1e7d00; }
@@ -93,12 +93,12 @@
     .hdr-badge { width:32px; height:32px; border-radius:7px; background:#4cff00; display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:14px; color:#0d0d0d; }
     .hdr-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:19px; letter-spacing:1px; }
     .hdr-sub { font-size:10px; color:#fff; letter-spacing:2px; text-transform:uppercase; margin-top:-2px; }
-    .tabs { display:flex; background:#111; border-bottom:1px solid #1c1c1c; padding:0 24px; overflow-x:auto; }
-    .tab { padding:16px 18px; background:none; border:none; border-bottom:2px solid transparent; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#aaa; cursor:pointer; white-space:nowrap; transition:color .15s,border-color .15s; position:relative; }
+    .tabs { display:flex; background:#0d0d0d; border-top:1px solid #222; padding:0; position:fixed; bottom:0; left:0; right:0; z-index:50; padding-bottom:env(safe-area-inset-bottom); box-shadow: 0 -8px 32px rgba(0,0,0,.7); backdrop-filter:blur(12px); }
+    .tab { flex:1; padding:10px 4px 8px; background:none; border:none; border-top:2px solid transparent; border-bottom:none; display:flex; flex-direction:column; align-items:center; gap:3px; line-height:1; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:#aaa; cursor:pointer; white-space:nowrap; transition:color .15s,border-color .15s; position:relative; }
     .tab:hover { color:#ccc; }
     .tab.on { color:#4cff00; border-bottom-color:#4cff00; }
-    .tab[title]:hover::after { content:attr(title); position:absolute; top:100%; left:50%; transform:translateX(-50%); background:#1a1a1a; border:1px solid #2a2a2a; color:#aaa; font-size:10px; letter-spacing:.5px; text-transform:none; font-weight:400; padding:6px 10px; border-radius:6px; white-space:nowrap; z-index:100; margin-top:4px; font-family:'Barlow',sans-serif; }
-    .pg { padding:32px 24px; max-width:820px; margin:0 auto; }
+    .tab[title]:hover::after { content:attr(title); position:absolute; bottom:100%; left:50%; transform:translateX(-50%); background:#1a1a1a; border:1px solid #2a2a2a; color:#aaa; font-size:10px; letter-spacing:.5px; text-transform:none; font-weight:400; padding:6px 10px; border-radius:6px; white-space:nowrap; z-index:100; margin-bottom:8px; font-family:'Barlow',sans-serif; }
+    .pg { padding:32px 24px 100px; max-width:820px; margin:0 auto; }
     .pg-h { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:28px; letter-spacing:.5px; line-height:1; }
     .pg-s { font-size:11px; color:#fff; letter-spacing:2px; text-transform:uppercase; margin:3px 0 28px; }
     .card { background:#131313; border:1px solid #1c1c1c; border-radius:14px; padding:26px 28px; margin-bottom:14px; }
@@ -708,11 +708,11 @@
     }
 
     const TABS = [
-      { id:"goal",    label:"🎯 Cílový čas",  tip:"Zadej cíl a vzdálenost → zjisti tempo" },
-      { id:"splits",  label:"⏱ Mezičasy",     tip:"Mezičasy na krátké úseky (100m–1míle)" },
-      { id:"convert", label:"🔄 Přepočet",    tip:"Převod min/km ↔ km/h ↔ m/s" },
-      { id:"races",   label:"🏆 Závody",      tip:"Závodní predikce z tempa nebo výsledku" },
-      { id:"zones",   label:"📊 Zóny TP",     tip:"Tréninkové zóny dle prahového tempa" },
+      { id:"goal",    label:"🎯\nCílový čas",  tip:"Zadej cíl a vzdálenost → zjisti tempo" },
+      { id:"splits",  label:"⏱\nMezičasy",     tip:"Mezičasy na krátké úseky (100m–1míle)" },
+      { id:"convert", label:"🔄\nPřepočet",    tip:"Převod min/km ↔ km/h ↔ m/s" },
+      { id:"races",   label:"🏆\nZávody",      tip:"Závodní predikce z tempa nebo výsledku" },
+      { id:"zones",   label:"📊\nZóny TP",     tip:"Tréninkové zóny dle prahového tempa" },
     ];
 
     function App() {
@@ -749,9 +749,14 @@
             <button className="theme-btn" onClick={toggleTheme}>{dark ? "☀️ Světlý" : "🌙 Tmavý"}</button>
           </header>
           <nav className="tabs">
-            {TABS.map(t=>(
-              <button key={t.id} className={`tab${tab===t.id?" on":""}`} onClick={()=>setTab(t.id)} title={t.tip}>{t.label}</button>
-            ))}
+            {TABS.map(t=>{
+              const [icon, ...rest] = t.label.split("\n");
+              return (
+              <button key={t.id} className={`tab${tab===t.id?" on":""}`} onClick={()=>setTab(t.id)} title={t.tip}>
+                <span style={{fontSize:22,lineHeight:1}}>{icon}</span>
+                <span style={{fontSize:9,letterSpacing:1.5,textTransform:"uppercase",fontWeight:700}}>{rest.join("")}</span>
+              </button>);
+            })}
           </nav>
           <main className="pg">
             {tab==="convert" && <ConvertTab  {...shared}/>}
